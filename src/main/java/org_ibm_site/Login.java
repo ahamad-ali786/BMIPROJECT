@@ -13,89 +13,67 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/login")
+public class Login extends HttpServlet {
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
 
-public class Login  extends HttpServlet{
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
 
+        System.out.println("received " + username);
+        System.out.println("received " + password);
 
+        try {
 
+            Class.forName("com.mysql.cj.jdbc.Driver");
 
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-	        throws ServletException, IOException {
+            // Railway MySQL environment variables
+            String url = System.getenv("MYSQL_URL");
+            String user = System.getenv("MYSQL_USER");
+            String pass = System.getenv("MYSQL_PASSWORD");
 
+            Connection con = DriverManager.getConnection(url, user, pass);
 
-	    // CORS
-	    resp.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:5501");
-	    resp.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-	    resp.setHeader("Access-Control-Allow-Headers", "Content-Type");
+            String query =
+                "SELECT * FROM users WHERE username = ? AND password = ?";
 
+            PreparedStatement ps = con.prepareStatement(query);
 
+            ps.setString(1, username);
+            ps.setString(2, password);
 
-	    // Get data from frontend
-	    String username = req.getParameter("username");
-	    String password = req.getParameter("password");
+            ResultSet rs = ps.executeQuery();
 
-	    System.out.println("received " + username);
-	    System.out.println("received " + password);
+            if (rs.next()) {
 
-	    try {
+                resp.getWriter().println("Login Successful");
 
-	    	Class.forName("com.mysql.cj.jdbc.Driver");
-	    	
-	        String url = "jdbc:mysql://localhost:3306/ibm_db";
-	        String user = "root";
-	        String pass = "root";
+            } else {
 
-	        Connection con = DriverManager.getConnection(url, user, pass);
+                resp.getWriter().println("Invalid Username or Password");
 
-	        String query =
-	            "SELECT * FROM users WHERE username = ? AND password = ?";
+            }
 
-	        PreparedStatement ps = con.prepareStatement(query);
+            rs.close();
+            ps.close();
+            con.close();
 
-	        ps.setString(1, username);
-	        ps.setString(2, password);
+        } catch (Exception e) {
 
-	        ResultSet rs = ps.executeQuery();
+            e.printStackTrace();
 
-	        if (rs.next()) {
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            resp.getWriter().println("Database Error: " + e.getMessage());
+        }
+    }
 
-	            resp.getWriter().println("Login Successful");
-	            
-	            System.out.println(rs);
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
 
-	        } else {
-
-	            resp.getWriter().println("Invalid Username or Password");
-
-	        }
-
-	        con.close();
-
-	    } catch (Exception e) {
-
-	       e.getCause().printStackTrace();
-
-
-
-
-	    }
-	}
-
-
-
-
-		@Override
-		protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-//			resp.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:5500");
-//			resp.setHeader("Access-Control-Allow-Methods", "POST");
-			doPost(req, resp);
-		}
-
-	}
-
-
-
+        doPost(req, resp);
+    }
+}
 

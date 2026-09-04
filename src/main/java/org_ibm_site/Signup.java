@@ -12,82 +12,69 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/signup")
-
 public class Signup extends HttpServlet {
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
 
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
 
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("created " + username);
+        System.out.println("created " + password);
 
+        try {
 
-		  // CORS
-	    resp.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:5501");
-	    resp.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-	    resp.setHeader("Access-Control-Allow-Headers", "Content-Type");
+            Class.forName("com.mysql.cj.jdbc.Driver");
 
+            // Railway MySQL environment variables
+            String url = System.getenv("MYSQL_URL");
+            String user = System.getenv("MYSQL_USER");
+            String pass = System.getenv("MYSQL_PASSWORD");
 
+            Connection con = DriverManager.getConnection(url, user, pass);
 
-		  String username = req.getParameter("username");
-		    String password = req.getParameter("password");
+            String query =
+                    "INSERT INTO users(username, password) VALUES (?, ?)";
 
-		    System.out.println("created " + username);
-		    System.out.println("created " + password);
+            PreparedStatement preparedStatement =
+                    con.prepareStatement(query);
 
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, password);
 
-		    try {
+            int dbquery = preparedStatement.executeUpdate();
 
-		        Class.forName("com.mysql.cj.jdbc.Driver");
+            if (dbquery > 0) {
 
-		        Connection con = DriverManager.getConnection(
-		            "jdbc:mysql://localhost:3306/ibm_db",
-		            "root",
-		            "root"
-		        );
+                System.out.println("Data inserted successfully");
+                resp.getWriter().print("SUCCESS");
 
-		        String query =
-		            "INSERT INTO users(username, password) VALUES (?, ?)";
+            } else {
 
-		        PreparedStatement preparedStatement =
-		            con.prepareStatement(query);
+                resp.getWriter().print("FAILED");
+            }
 
-		        preparedStatement.setString(1, username);
-		        preparedStatement.setString(2, password);
+            preparedStatement.close();
+            con.close();
 
-		        // This executes the INSERT query
-		        int dbquery = preparedStatement.executeUpdate();
+        } catch (Exception e) {
 
-		        if (dbquery > 0) {
+            e.printStackTrace();
 
-		            System.out.println("Data inserted successfully");
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            resp.getWriter().print("Database Error: " + e.getMessage());
+        }
+    }
 
-		            resp.getWriter().print("SUCCESS");
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
 
-		        } else {
-
-		            resp.getWriter().print("FAILED");
-
-		        }
-
-		        con.close();
-
-		    } catch (Exception e) {
-
-		        e.printStackTrace();
-
-		    }
-		}
-
-
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-		doPost(req, resp);
-	}
-
-
-	}
-
+        doPost(req, resp);
+    }
+}
 
 
 

@@ -1,0 +1,54 @@
+
+
+body{
+    background-image: url("./hospital_img.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+.nav-link{
+    cursor: pointer;
+}
+
+.box{
+   width: 50%;
+   max-width: 1200px;
+   margin: auto;
+   height: 60%;
+  
+   position: relative;
+   top: 10%;
+   background-color: white;
+   border-radius: 2%;
+
+  
+  
+}
+
+.chkbtn{
+    
+    background: none;
+    border: none;
+    color: white;
+    
+}
+.reset_button{
+     background: none;
+    border: none;
+    color: white;
+}
+.rs_btn{
+   
+    background-color: red;
+    outline: none;
+    border: none;
+}
+.res{
+    font-size: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.anchor{
+    text-decoration: none;
+    color: white;
+}

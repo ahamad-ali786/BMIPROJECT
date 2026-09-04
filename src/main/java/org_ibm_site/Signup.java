@@ -33,6 +33,10 @@ public class Signup extends HttpServlet {
             String user = System.getenv("MYSQL_USER");
             String pass = System.getenv("MYSQL_PASSWORD");
 
+            System.out.println("MYSQL_URL exists: " + (url != null));
+            System.out.println("MYSQL_USER exists: " + (user != null));
+            System.out.println("MYSQL_PASSWORD exists: " + (pass != null));
+            
             Connection con = DriverManager.getConnection(url, user, pass);
 
             String query =

@@ -22,17 +22,16 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
 		
 		
 		if (result.trim() === "SUCCESS") {
-			
 
-		    console.log("LOGIN SUCCESSFUL");
-			
+		    console.log("Login Successful");
 
 		    localStorage.setItem("username", username);
 		    localStorage.setItem("isLoggedIn", "true");
 
-		    window.location.href = "./index.html";
+		    window.location.replace("./index.html");
 
-		} else {
+		}
+		else {
 
 		    document.getElementById("message").innerText =
 		        "Invalid Username or Password";

@@ -62,6 +62,17 @@
     <a class="anchor" href="./about.html" target="_self"><button class="nav-link active rounded-5" id="contact-tab2" data-bs-toggle="tab" type="button" role="tab" aria-selected="false">About</button></a>
   </li>
 </ul>
+<div class="d-flex align-items-center ms-3">
+
+    <span id="userDisplay" class="fw-bold me-3">
+        Guest
+    </span>
+
+    <button id="logout" class="btn btn-danger" onclick="logout()">
+        Logout
+    </button>
+
+</div>
 
             <form class="d-flex ms-auto" role="search" >
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
@@ -87,6 +98,33 @@
 
         
     </div>
+    
+    <script>
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+    const username = localStorage.getItem("username");
+
+    const userDisplay = document.getElementById("userDisplay");
+    const logoutButton = document.getElementById("logout");
+
+    if (isLoggedIn === "true" && username) {
+
+        userDisplay.innerText = "👤 " + username;
+        logoutButton.style.display = "block";
+
+    } else {
+
+        userDisplay.innerText = "Guest";
+        logoutButton.style.display = "none";
+    }
+
+    function logout() {
+
+        localStorage.removeItem("username");
+        localStorage.removeItem("isLoggedIn");
+
+        window.location.href = "./login.html";
+    }
+</script>
 
 </body>
 </html>

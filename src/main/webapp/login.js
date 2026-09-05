@@ -19,10 +19,13 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
         });
 
         const result = await response.text();
+		
+		
+		console.log(result);
 
-        console.log("SERVER RESPONSE:", JSON.stringify(result));
-
-        if (result.trim() === "SUCCESS") {
+        if (result.trim() === "Login Successful") {
+			
+			console.log("SERVER RESPONSE:", JSON.stringify(result));
 
             console.log("LOGIN SUCCESSFUL");
 

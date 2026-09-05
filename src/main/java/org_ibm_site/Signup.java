@@ -22,22 +22,39 @@ public class Signup extends HttpServlet {
         String password = req.getParameter("password");
 
         System.out.println("created " + username);
-        System.out.println("created " + password);
 
         try {
 
+            // Load MySQL JDBC Driver
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            // Railway MySQL environment variables
-            String url = System.getenv("MYSQL_URL");
-            String user = System.getenv("MYSQLUSER");
-            String pass = System.getenv("MYSQLPASSWORD");
+            System.out.println("MYSQL DRIVER LOADED SUCCESSFULLY");
 
-            System.out.println("MYSQL_URL exists: " + (url != null));
-            System.out.println("MYSQLUSER exists: " + (user != null));
-            System.out.println("MYSQLPASSWORD exists: " + (pass != null));
-            
-            Connection con = DriverManager.getConnection(url, user, pass);
+            // Railway MySQL variables
+            String host = System.getenv("MYSQLHOST");
+            String port = System.getenv("MYSQLPORT");
+            String database = System.getenv("MYSQLDATABASE");
+            String dbUser = System.getenv("MYSQLUSER");
+            String dbPassword = System.getenv("MYSQLPASSWORD");
+
+            // Create JDBC URL
+            String url = "jdbc:mysql://" + host + ":" + port + "/" + database
+                    + "?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+
+            System.out.println("MYSQLHOST exists: " + (host != null));
+            System.out.println("MYSQLPORT exists: " + (port != null));
+            System.out.println("MYSQLDATABASE exists: " + (database != null));
+            System.out.println("MYSQLUSER exists: " + (dbUser != null));
+            System.out.println("MYSQLPASSWORD exists: " + (dbPassword != null));
+
+            // Create database connection
+            Connection con = DriverManager.getConnection(
+                    url,
+                    dbUser,
+                    dbPassword
+            );
+
+            System.out.println("DATABASE CONNECTED SUCCESSFULLY");
 
             String query =
                     "INSERT INTO users(username, password) VALUES (?, ?)";
@@ -53,6 +70,7 @@ public class Signup extends HttpServlet {
             if (dbquery > 0) {
 
                 System.out.println("Data inserted successfully");
+
                 resp.getWriter().print("SUCCESS");
 
             } else {
@@ -68,7 +86,10 @@ public class Signup extends HttpServlet {
             e.printStackTrace();
 
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            resp.getWriter().print("Database Error: " + e.getMessage());
+
+            resp.getWriter().print(
+                    "Database Error: " + e.getMessage()
+            );
         }
     }
 
@@ -79,8 +100,5 @@ public class Signup extends HttpServlet {
         doPost(req, resp);
     }
 }
-
-
-
 
 

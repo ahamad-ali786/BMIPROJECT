@@ -28,7 +28,7 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
 		    localStorage.setItem("username", username);
 		    localStorage.setItem("isLoggedIn", "true");
 
-		    window.location.replace("./index.html");
+			window.location.href = "/index.html";
 
 		}
 		else {

@@ -1,3 +1,4 @@
+
 document.getElementById("loginForm").addEventListener("submit", async function(event) {
 
     event.preventDefault();
@@ -23,13 +24,15 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
 
         console.log("Response:", result);
 
-        if (result.trim() === "Login Successful") {
-			
-			console.log(result);
+        if (result.trim() === "SUCCESS") {
 
+            console.log("Login Successful");
+
+            // Store login information
             localStorage.setItem("username", username);
             localStorage.setItem("isLoggedIn", "true");
 
+            // Redirect to main page
             window.location.replace("index.html");
 
         } else {

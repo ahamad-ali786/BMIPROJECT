@@ -1,3 +1,4 @@
+
 package org_ibm_site;
 
 import java.io.IOException;
@@ -30,35 +31,25 @@ public class Signup extends HttpServlet {
 
             System.out.println("MYSQL DRIVER LOADED SUCCESSFULLY");
 
-            // Railway MySQL variables
-            String host = System.getenv("MYSQLHOST");
-            String port = System.getenv("MYSQLPORT");
-            String database = System.getenv("MYSQLDATABASE");
+            // Get Railway MySQL connection details
+            String url = System.getenv("MYSQL_URL");
             String dbUser = System.getenv("MYSQLUSER");
             String dbPassword = System.getenv("MYSQLPASSWORD");
 
-            String url = "jdbc:mysql://" + host + ":" + port + "/" + database
-                    + "?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+            System.out.println("MYSQL_URL EXISTS = " + (url != null));
+            System.out.println("MYSQLUSER EXISTS = " + (dbUser != null));
+            System.out.println("MYSQLPASSWORD EXISTS = " + (dbPassword != null));
 
-            System.out.println("HOST: " + host);
-            System.out.println("PORT: " + port);
-            System.out.println("DATABASE: " + database);
-            System.out.println("========== DATABASE DEBUG ==========");
-            System.out.println("HOST = " + host);
-            System.out.println("PORT = " + port);
-            System.out.println("DATABASE = " + database);
-            System.out.println("USER EXISTS = " + (dbUser != null));
-            System.out.println("PASSWORD EXISTS = " + (dbPassword != null));
-            System.out.println("URL = " + url);
-            System.out.println("====================================");
-
+            // Connect to database
             Connection con = DriverManager.getConnection(
                     url,
                     dbUser,
                     dbPassword
             );
+
             System.out.println("DATABASE CONNECTED SUCCESSFULLY");
 
+            // Insert user
             String query =
                     "INSERT INTO users(username, password) VALUES (?, ?)";
 
@@ -88,7 +79,9 @@ public class Signup extends HttpServlet {
 
             e.printStackTrace();
 
-            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            resp.setStatus(
+                    HttpServletResponse.SC_INTERNAL_SERVER_ERROR
+            );
 
             resp.getWriter().print(
                     "Database Error: " + e.getMessage()
@@ -103,5 +96,4 @@ public class Signup extends HttpServlet {
         doPost(req, resp);
     }
 }
-
 

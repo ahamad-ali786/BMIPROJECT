@@ -145,3 +145,6 @@ button:hover {
 .signup-text a:hover {
     text-decoration: underline;
 }
+a{
+	color: white;
+}

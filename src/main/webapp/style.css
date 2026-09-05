@@ -1,5 +1,10 @@
 
 
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;;
+}
 body{
     background-image: url("./hospital_img.jpg");
     background-size: cover;
@@ -22,8 +27,7 @@ body{
    background-color: white;
    border-radius: 2%;
 
-  
-  
+
 }
 
 .chkbtn{

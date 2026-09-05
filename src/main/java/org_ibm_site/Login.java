@@ -27,14 +27,15 @@ public class Login extends HttpServlet {
 
         try {
 
-            Class.forName("com.mysql.cj.jdbc.Driver");
 
             // Railway MySQL environment variables
             Class.forName("com.mysql.cj.jdbc.Driver");
 
            
-            String url = System.getenv("MYSQL_URL");
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("MYSQL DRIVER LOADED SUCCESSFULLY");
 
+            String url = System.getenv("MYSQL_URL");
             String dbUser = System.getenv("MYSQLUSER");
             String dbPassword = System.getenv("MYSQLPASSWORD");
 
@@ -43,6 +44,9 @@ public class Login extends HttpServlet {
             System.out.println("MYSQLPASSWORD EXISTS = " + (dbPassword != null));
 
             Connection con = DriverManager.getConnection(url, dbUser, dbPassword);
+
+            System.out.println("DATABASE CONNECTED SUCCESSFULLY");
+
 
 
             System.out.println("DATABASE CONNECTED SUCCESSFULLY");

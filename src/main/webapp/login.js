@@ -23,7 +23,7 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
 		
 	
 
-		if (result.trim() === "Login Successful") {
+		if (result.trim() === "SUCCESS") {
 
 		    console.log("LOGIN SUCCESSFUL");
 

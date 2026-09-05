@@ -9,33 +9,33 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
     try {
 
         const response = await fetch("login", {
-
             method: "POST",
-
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
             },
-
-            body: "username=" + encodeURIComponent(username) +
-                  "&password=" + encodeURIComponent(password)
+            body:
+                "username=" + encodeURIComponent(username) +
+                "&password=" + encodeURIComponent(password)
         });
 
         const result = await response.text();
 
         console.log("Response:", result);
+        console.log("Trimmed Response:", result.trim());
+        console.log("Response Length:", result.trim().length);
 
-        if (result.trim() === "SUCCESS") {
+        if (result.trim().toUpperCase() === "SUCCESS") {
 
-            console.log("Login Successful");
+            console.log("LOGIN SUCCESS - REDIRECTING");
 
-            // Store login information
             localStorage.setItem("username", username);
             localStorage.setItem("isLoggedIn", "true");
 
-            // Redirect to main page
-            window.location.replace("index.html");
+            window.location.href = "index.html";
 
         } else {
+
+            console.log("LOGIN FAILED");
 
             document.getElementById("message").innerHTML =
                 "Invalid Username or Password";
@@ -50,3 +50,4 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
     }
 
 });
+

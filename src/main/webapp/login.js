@@ -12,7 +12,6 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
     try {
 
         const response = await fetch("./login", {
-
             method: "POST",
 
             headers: {
@@ -22,7 +21,6 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
             body: "username=" + encodeURIComponent(username) +
                   "&password=" + encodeURIComponent(password)
         });
-
         const result = await response.text();
 
         console.log("SERVER RESPONSE:", result);

@@ -222,3 +222,20 @@ body{
     }
 }
 
+@media (max-width: 767px) {
+
+    .box {
+        width: 95% !important;
+        max-width: none !important;
+        height: auto !important;
+        top: 10px !important;
+        margin: 10px auto !important;
+        padding: 20px 15px !important;
+    }
+
+    .move-right {
+        margin-left: 0 !important;
+    }
+
+}
+

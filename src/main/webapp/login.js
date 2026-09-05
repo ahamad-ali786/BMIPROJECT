@@ -28,7 +28,7 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
         console.log("SERVER RESPONSE:", result);
         console.log("TRIMMED RESPONSE:", result.trim());
 
-		if (result.trim() === "Login Successful") {
+		if (result.trim() === "SUCCESS") {
 
             console.log("LOGIN SUCCESS - REDIRECTING");
 

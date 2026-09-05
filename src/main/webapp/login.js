@@ -21,11 +21,11 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
         const result = await response.text();
 		
 		
-	
-
 		if (result.trim() === "SUCCESS") {
+			
 
 		    console.log("LOGIN SUCCESSFUL");
+			
 
 		    localStorage.setItem("username", username);
 		    localStorage.setItem("isLoggedIn", "true");

@@ -1,4 +1,3 @@
-
 document.getElementById("loginForm").addEventListener("submit", async function(event) {
 
     event.preventDefault();
@@ -22,11 +21,10 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
 
         console.log("Response:", result);
         console.log("Trimmed Response:", result.trim());
-        console.log("Response Length:", result.trim().length);
 
-        if (result.trim().toUpperCase() === "SUCCESS") {
+        if (result.trim() === "SUCCESS") {
 
-            console.log("LOGIN SUCCESS - REDIRECTING");
+            console.log("LOGIN SUCCESS");
 
             localStorage.setItem("username", username);
             localStorage.setItem("isLoggedIn", "true");
@@ -37,7 +35,7 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
 
             console.log("LOGIN FAILED");
 
-            document.getElementById("message").innerHTML =
+            document.getElementById("message").innerText =
                 "Invalid Username or Password";
         }
 
@@ -45,9 +43,8 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
 
         console.error("Error:", error);
 
-        document.getElementById("message").innerHTML =
+        document.getElementById("message").innerText =
             "Something went wrong. Please try again.";
     }
 
 });
-

@@ -30,21 +30,32 @@ public class Login extends HttpServlet {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             // Railway MySQL environment variables
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
             String host = System.getenv("MYSQLHOST");
             String port = System.getenv("MYSQLPORT");
             String database = System.getenv("MYSQLDATABASE");
-            String user = System.getenv("MYSQLUSER");
-            String pass= System.getenv("MYSQLPASSWORD");
+            String dbUser = System.getenv("MYSQLUSER");
+            String dbPassword = System.getenv("MYSQLPASSWORD");
+
+            System.out.println("HOST EXISTS: " + (host != null));
+            System.out.println("PORT EXISTS: " + (port != null));
+            System.out.println("DATABASE EXISTS: " + (database != null));
+            System.out.println("USER EXISTS: " + (dbUser != null));
+            System.out.println("PASSWORD EXISTS: " + (dbPassword != null));
 
             String url = "jdbc:mysql://" + host + ":" + port + "/" + database
                     + "?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
 
-            System.out.println("MYSQLURL exists: " + (url != null));
-            System.out.println("MYSQLUSER exists: " + (user != null));
-            System.out.println("MYSQLPASSWORD exists: " + (pass != null));
+            System.out.println("JDBC URL: " + url);
 
-            Connection con = DriverManager.getConnection(url, user, pass);
+            Connection con = DriverManager.getConnection(
+                    url,
+                    dbUser,
+                    dbPassword
+            );
 
+            System.out.println("DATABASE CONNECTED SUCCESSFULLY");
             String query =
                 "SELECT * FROM users WHERE username = ? AND password = ?";
 

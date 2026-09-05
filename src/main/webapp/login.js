@@ -29,7 +29,7 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
 		if (result.trim() === "SUCCESS") {
 
             console.log("LOGIN SUCCESS - REDIRECTING");
-
+			
             localStorage.setItem("username", username);
             localStorage.setItem("isLoggedIn", "true");
 

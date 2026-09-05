@@ -37,18 +37,26 @@ public class Signup extends HttpServlet {
             String dbUser = System.getenv("MYSQLUSER");
             String dbPassword = System.getenv("MYSQLPASSWORD");
 
-            System.out.println("MYSQLHOST exists: " + (host != null));
-            System.out.println("MYSQLPORT exists: " + (port != null));
-            System.out.println("MYSQLDATABASE exists: " + (database != null));
-            System.out.println("MYSQLUSER exists: " + (dbUser != null));
-            System.out.println("MYSQLPASSWORD exists: " + (dbPassword != null));
-
             String url = "jdbc:mysql://" + host + ":" + port + "/" + database
                     + "?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
 
-            Connection con = DriverManager.getConnection(url, dbUser, dbPassword);
-            
+            System.out.println("HOST: " + host);
+            System.out.println("PORT: " + port);
+            System.out.println("DATABASE: " + database);
+            System.out.println("========== DATABASE DEBUG ==========");
+            System.out.println("HOST = " + host);
+            System.out.println("PORT = " + port);
+            System.out.println("DATABASE = " + database);
+            System.out.println("USER EXISTS = " + (dbUser != null));
+            System.out.println("PASSWORD EXISTS = " + (dbPassword != null));
+            System.out.println("URL = " + url);
+            System.out.println("====================================");
 
+            Connection con = DriverManager.getConnection(
+                    url,
+                    dbUser,
+                    dbPassword
+            );
             System.out.println("DATABASE CONNECTED SUCCESSFULLY");
 
             String query =

@@ -1,3 +1,4 @@
+
 package org_ibm_site;
 
 import java.io.IOException;
@@ -22,31 +23,41 @@ public class Login extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
 
-        System.out.println("received " + username);
-        System.out.println("received " + password);
+        System.out.println("received username: " + username);
 
         try {
 
+            // Load MySQL JDBC Driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
 
-            // Railway MySQL environment variables
-        	Class.forName("com.mysql.cj.jdbc.Driver");
-        	System.out.println("MYSQL DRIVER LOADED SUCCESSFULLY");
+            System.out.println("MYSQL DRIVER LOADED SUCCESSFULLY");
 
-        	String url = System.getenv("MYSQL_URL");
-        	String dbUser = System.getenv("MYSQLUSER");
-        	String dbPassword = System.getenv("MYSQLPASSWORD");
+            // Get Railway MySQL variables
+            String url = System.getenv("MYSQL_URL");
+            String dbUser = System.getenv("MYSQLUSER");
+            String dbPassword = System.getenv("MYSQLPASSWORD");
 
-        	System.out.println("MYSQL_URL EXISTS = " + (url != null));
-        	System.out.println("MYSQLUSER EXISTS = " + (dbUser != null));
-        	System.out.println("MYSQLPASSWORD EXISTS = " + (dbPassword != null));
+            // Convert Railway mysql:// URL to JDBC jdbc:mysql:// URL
+            if (url != null && url.startsWith("mysql://")) {
+                url = "jdbc:" + url;
+            }
 
-        	Connection con = DriverManager.getConnection(url, dbUser, dbPassword);
+            System.out.println("MYSQL_URL EXISTS = " + (url != null));
+            System.out.println("MYSQLUSER EXISTS = " + (dbUser != null));
+            System.out.println("MYSQLPASSWORD EXISTS = " + (dbPassword != null));
 
-        	System.out.println("DATABASE CONNECTED SUCCESSFULLY");
+            // Connect to Railway MySQL
+            Connection con = DriverManager.getConnection(
+                    url,
+                    dbUser,
+                    dbPassword
+            );
 
-          
+            System.out.println("DATABASE CONNECTED SUCCESSFULLY");
+
+            // Check username and password
             String query =
-                "SELECT * FROM users WHERE username = ? AND password = ?";
+                    "SELECT * FROM users WHERE username = ? AND password = ?";
 
             PreparedStatement ps = con.prepareStatement(query);
 
@@ -57,12 +68,15 @@ public class Login extends HttpServlet {
 
             if (rs.next()) {
 
-                resp.getWriter().println("Login Successful");
+                System.out.println("LOGIN SUCCESSFUL");
+
+                resp.getWriter().print("SUCCESS");
 
             } else {
 
-                resp.getWriter().println("Invalid Username or Password");
+                System.out.println("INVALID USERNAME OR PASSWORD");
 
+                resp.getWriter().print("INVALID");
             }
 
             rs.close();
@@ -73,8 +87,13 @@ public class Login extends HttpServlet {
 
             e.printStackTrace();
 
-            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            resp.getWriter().println("Database Error: " + e.getMessage());
+            resp.setStatus(
+                    HttpServletResponse.SC_INTERNAL_SERVER_ERROR
+            );
+
+            resp.getWriter().print(
+                    "Database Error: " + e.getMessage()
+            );
         }
     }
 

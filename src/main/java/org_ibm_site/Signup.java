@@ -27,27 +27,29 @@ public class Signup extends HttpServlet {
         try {
 
             // Load MySQL JDBC Driver
-            Class.forName("com.mysql.cj.jdbc.Driver");
+        	Class.forName("com.mysql.cj.jdbc.Driver");
 
-            System.out.println("MYSQL DRIVER LOADED SUCCESSFULLY");
+        	System.out.println("MYSQL DRIVER LOADED SUCCESSFULLY");
 
-            // Get Railway MySQL connection details
-            String url = System.getenv("MYSQL_URL");
-            String dbUser = System.getenv("MYSQLUSER");
-            String dbPassword = System.getenv("MYSQLPASSWORD");
+        	String url = System.getenv("MYSQL_URL");
+        	String dbUser = System.getenv("MYSQLUSER");
+        	String dbPassword = System.getenv("MYSQLPASSWORD");
 
-            System.out.println("MYSQL_URL EXISTS = " + (url != null));
-            System.out.println("MYSQLUSER EXISTS = " + (dbUser != null));
-            System.out.println("MYSQLPASSWORD EXISTS = " + (dbPassword != null));
+        	if (url != null && url.startsWith("mysql://")) {
+        	    url = "jdbc:" + url;
+        	}
 
-            // Connect to database
-            Connection con = DriverManager.getConnection(
-                    url,
-                    dbUser,
-                    dbPassword
-            );
+        	System.out.println("MYSQL_URL EXISTS = " + (url != null));
+        	System.out.println("MYSQLUSER EXISTS = " + (dbUser != null));
+        	System.out.println("MYSQLPASSWORD EXISTS = " + (dbPassword != null));
 
-            System.out.println("DATABASE CONNECTED SUCCESSFULLY");
+        	Connection con = DriverManager.getConnection(
+        	        url,
+        	        dbUser,
+        	        dbPassword
+        	);
+
+        	System.out.println("DATABASE CONNECTED SUCCESSFULLY");
 
             // Insert user
             String query =

@@ -1,5 +1,5 @@
 
-console.log(" login loaded");
+console.log("LOGIN JS VERSION 2");
 document.getElementById("loginForm").addEventListener("submit", async function(event) {
 	
 	console.log("login button clicked");
@@ -28,20 +28,20 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
 
 		if (result.trim() === "SUCCESS") {
 
-            console.log("LOGIN SUCCESS - REDIRECTING");
-			
-            localStorage.setItem("username", username);
-            localStorage.setItem("isLoggedIn", "true");
+		    console.log("LOGIN SUCCESS - REDIRECTING");
 
-            window.location.href = "./index.html";
+		    localStorage.setItem("username", username);
+		    localStorage.setItem("isLoggedIn", "true");
 
-        } else {
+		    window.location.href = "./index.html";
 
-            console.log("LOGIN FAILED");
+		} else {
 
-            document.getElementById("message").innerHTML =
-                "Invalid Username or Password";
-        }
+		    console.log("LOGIN FAILED");
+
+		    document.getElementById("message").innerHTML =
+		        "Invalid Username or Password";
+		}
 
     } catch (error) {
 

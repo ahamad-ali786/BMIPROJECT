@@ -20,17 +20,21 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
 
         const result = await response.text();
 
-        console.log("SERVER RESPONSE =", JSON.stringify(result));
+        console.log("SERVER RESPONSE:", JSON.stringify(result));
 
-        if (result.trim().includes("SUCCESS")) {
+        if (result.trim() === "SUCCESS") {
 
             console.log("LOGIN SUCCESSFUL");
-            console.log("Redirecting to index.html...");
 
             localStorage.setItem("username", username);
             localStorage.setItem("isLoggedIn", "true");
 
-            window.location.replace("./index.html");
+            document.getElementById("message").innerText =
+                "Login Successful!";
+
+            setTimeout(function() {
+                window.location.href = "./index.html";
+            }, 500);
 
         } else {
 
@@ -42,7 +46,7 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
 
     } catch (error) {
 
-        console.error("ERROR =", error);
+        console.error("ERROR:", error);
 
         document.getElementById("message").innerText =
             "Something went wrong. Please try again.";

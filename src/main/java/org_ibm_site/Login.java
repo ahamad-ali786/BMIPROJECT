@@ -44,7 +44,6 @@ public class Login extends HttpServlet {
 
         	System.out.println("DATABASE CONNECTED SUCCESSFULLY");
 
-
           
             String query =
                 "SELECT * FROM users WHERE username = ? AND password = ?";

@@ -1,4 +1,3 @@
-
 document.getElementById("loginForm").addEventListener("submit", async function(event) {
 
     event.preventDefault();
@@ -9,40 +8,45 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
     try {
 
         const response = await fetch("./login", {
+
             method: "POST",
+
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
             },
-            body:
-                "username=" + encodeURIComponent(username) +
-                "&password=" + encodeURIComponent(password)
+
+            body: "username=" + encodeURIComponent(username) +
+                  "&password=" + encodeURIComponent(password)
         });
 
         const result = await response.text();
-		
-		
-		if (result.trim() === "SUCCESS") {
 
-		    console.log("Login Successful");
+        console.log("SERVER RESPONSE:", result);
+        console.log("TRIMMED RESPONSE:", result.trim());
 
-		    localStorage.setItem("username", username);
-		    localStorage.setItem("isLoggedIn", "true");
+        if (result.trim() === "SUCCESS") {
 
-			window.location.href = "/index.html";
+            console.log("LOGIN SUCCESS - REDIRECTING");
 
-		}
-		else {
+            localStorage.setItem("username", username);
+            localStorage.setItem("isLoggedIn", "true");
 
-		    document.getElementById("message").innerText =
-		        "Invalid Username or Password";
-		}
+            window.location.href = "./index.html";
+
+        } else {
+
+            console.log("LOGIN FAILED");
+
+            document.getElementById("message").innerHTML =
+                "Invalid Username or Password";
+        }
+
     } catch (error) {
 
         console.error("ERROR:", error);
 
-        document.getElementById("message").innerText =
+        document.getElementById("message").innerHTML =
             "Something went wrong. Please try again.";
     }
 
 });
-

@@ -1,3 +1,4 @@
+
 document.getElementById("loginForm").addEventListener("submit", async function(event) {
 
     event.preventDefault();
@@ -7,7 +8,7 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
 
     try {
 
-        const response = await fetch("login", {
+        const response = await fetch("./login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
@@ -19,17 +20,17 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
 
         const result = await response.text();
 
-        console.log("Response:", result);
-        console.log("Trimmed Response:", result.trim());
+        console.log("SERVER RESPONSE =", JSON.stringify(result));
 
-        if (result.trim() === "SUCCESS") {
+        if (result.trim().includes("SUCCESS")) {
 
-            console.log("LOGIN SUCCESS");
+            console.log("LOGIN SUCCESSFUL");
+            console.log("Redirecting to index.html...");
 
             localStorage.setItem("username", username);
             localStorage.setItem("isLoggedIn", "true");
 
-            window.location.href = "index.html";
+            window.location.replace("./index.html");
 
         } else {
 
@@ -41,10 +42,11 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
 
     } catch (error) {
 
-        console.error("Error:", error);
+        console.error("ERROR =", error);
 
         document.getElementById("message").innerText =
             "Something went wrong. Please try again.";
     }
 
 });
+

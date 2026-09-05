@@ -21,32 +21,22 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
         const result = await response.text();
 		
 		
-		console.log(result);
+		
 
-        if (result.trim() === "Login Successful") {
-			
-			console.log("SERVER RESPONSE:", JSON.stringify(result));
+		if (result.trim() === "Login Successful") {
 
-            console.log("LOGIN SUCCESSFUL");
+		    console.log("LOGIN SUCCESSFUL");
 
-            localStorage.setItem("username", username);
-            localStorage.setItem("isLoggedIn", "true");
+		    localStorage.setItem("username", username);
+		    localStorage.setItem("isLoggedIn", "true");
 
-            document.getElementById("message").innerText =
-                "Login Successful!";
+		    window.location.href = "./index.html";
 
-            setTimeout(function() {
-                window.location.href = "./index.html";
-            }, 500);
+		} else {
 
-        } else {
-
-            console.log("LOGIN FAILED");
-
-            document.getElementById("message").innerText =
-                "Invalid Username or Password";
-        }
-
+		    document.getElementById("message").innerText =
+		        "Invalid Username or Password";
+		}
     } catch (error) {
 
         console.error("ERROR:", error);

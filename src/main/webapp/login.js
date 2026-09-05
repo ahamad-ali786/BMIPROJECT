@@ -1,4 +1,8 @@
+
+console.log(" login loaded");
 document.getElementById("loginForm").addEventListener("submit", async function(event) {
+	
+	console.log("login button clicked");
 
     event.preventDefault();
 

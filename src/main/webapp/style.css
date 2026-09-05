@@ -52,3 +52,169 @@ body{
     text-decoration: none;
     color: white;
 }
+
+/* ============================= */
+/* TABLET */
+/* ============================= */
+
+@media (max-width: 991px) {
+
+    .box {
+        width: 85%;
+        height: auto;
+        min-height: 60%;
+        top: 5%;
+        padding: 25px;
+    }
+
+    .move-right {
+        margin-left: 0 !important;
+    }
+
+    #userDisplay {
+        text-align: center;
+        margin-top: 10px;
+    }
+}
+
+
+/* ============================= */
+/* MOBILE */
+/* ============================= */
+
+@media (max-width: 767px) {
+
+    body {
+        min-height: 100vh;
+        height: auto;
+        padding-bottom: 30px;
+    }
+
+    .box {
+        width: 96%;
+        max-width: none;
+
+        height: auto;
+        min-height: auto;
+
+        top: 10px;
+
+        margin: 0 auto;
+
+        padding: 20px 15px;
+
+        border-radius: 15px;
+    }
+
+    .box h1 {
+        font-size: 25px;
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    .box .container {
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    .box .row {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .box label {
+        width: 100%;
+        font-size: 15px;
+    }
+
+    .box input {
+        width: 100%;
+        font-size: 16px;
+        padding: 10px;
+    }
+
+    .res {
+        font-size: 20px;
+        text-align: center;
+        margin-top: 15px;
+    }
+
+    .checkButton {
+        margin-left: 0 !important;
+        margin-top: 15px !important;
+    }
+
+    .rs_btn {
+        margin-left: 10px !important;
+    }
+
+    #userDisplay {
+        text-align: center;
+        font-size: 18px;
+    }
+}
+
+
+/* ============================= */
+/* SMALL MOBILE */
+/* ============================= */
+
+@media (max-width: 480px) {
+
+    .box {
+        width: 98%;
+        padding: 20px 12px;
+        top: 5px;
+    }
+
+    .box h1 {
+        font-size: 22px;
+    }
+
+    .box .container {
+        padding: 0;
+    }
+
+    .box input {
+        font-size: 16px;
+        padding: 11px;
+    }
+
+    .box label {
+        font-size: 14px;
+    }
+
+    .res {
+        font-size: 18px;
+    }
+
+    .checkButton,
+    .rs_btn {
+        margin-top: 12px !important;
+    }
+}
+
+
+/* ============================= */
+/* VERY SMALL MOBILE */
+/* ============================= */
+
+@media (max-width: 360px) {
+
+    .box {
+        width: 99%;
+        padding: 18px 10px;
+    }
+
+    .box h1 {
+        font-size: 20px;
+    }
+
+    .box input {
+        font-size: 15px;
+    }
+}
+

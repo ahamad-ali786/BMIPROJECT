@@ -67,18 +67,12 @@ public class Login extends HttpServlet {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-
                 System.out.println("LOGIN SUCCESSFUL");
-
                 resp.getWriter().print("SUCCESS");
-
             } else {
-
                 System.out.println("INVALID USERNAME OR PASSWORD");
-
                 resp.getWriter().print("INVALID");
             }
-
             rs.close();
             ps.close();
             con.close();

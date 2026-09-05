@@ -31,8 +31,12 @@ public class Login extends HttpServlet {
 
             // Railway MySQL environment variables
             String url = System.getenv("MYSQL_URL");
-            String user = System.getenv("MYSQL_USER");
-            String pass = System.getenv("MYSQL_PASSWORD");
+            String user = System.getenv("MYSQLUSER");
+            String pass = System.getenv("MYSQLPASSWORD");
+            
+            System.out.println("MYSQLURL exists: " + (url != null));
+            System.out.println("MYSQLUSER exists: " + (user != null));
+            System.out.println("MYSQLPASSWORD exists: " + (pass != null));
 
             Connection con = DriverManager.getConnection(url, user, pass);
 

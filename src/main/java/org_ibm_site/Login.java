@@ -30,10 +30,15 @@ public class Login extends HttpServlet {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             // Railway MySQL environment variables
-            String url = System.getenv("MYSQL_URL");
+            String host = System.getenv("MYSQLHOST");
+            String port = System.getenv("MYSQLPORT");
+            String database = System.getenv("MYSQLDATABASE");
             String user = System.getenv("MYSQLUSER");
-            String pass = System.getenv("MYSQLPASSWORD");
-            
+            String pass= System.getenv("MYSQLPASSWORD");
+
+            String url = "jdbc:mysql://" + host + ":" + port + "/" + database
+                    + "?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+
             System.out.println("MYSQLURL exists: " + (url != null));
             System.out.println("MYSQLUSER exists: " + (user != null));
             System.out.println("MYSQLPASSWORD exists: " + (pass != null));
